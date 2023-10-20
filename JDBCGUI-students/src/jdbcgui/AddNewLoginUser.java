@@ -139,18 +139,8 @@ public class AddNewLoginUser extends javax.swing.JFrame {
     lblNameError.setText("error label");
 
     txtPassword.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-    txtPassword.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        txtPasswordActionPerformed(evt);
-      }
-    });
 
     txtConfirmPassword.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-    txtConfirmPassword.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        txtConfirmPasswordActionPerformed(evt);
-      }
-    });
 
     jToggleButton1.setText("Toggle Show");
     jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -210,11 +200,12 @@ public class AddNewLoginUser extends javax.swing.JFrame {
           .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(lblUsernameError))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel3)
-          .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(lblPasswordError)
-          .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addComponent(jLabel3)
+            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblPasswordError)))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel4)
@@ -361,16 +352,6 @@ public class AddNewLoginUser extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnAddNewEmpActionPerformed
-
-    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_txtPasswordActionPerformed
-
-  private void txtConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmPasswordActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_txtConfirmPasswordActionPerformed
 
   private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
     // TODO add your handling code here:
