@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.util.Arrays;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 
 /*
@@ -308,6 +310,14 @@ public class AddNewLoginUser extends javax.swing.JFrame {
       }
       return -1;
     }
+    
+    public static String bytesToHex(byte[] bytes) {
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : bytes) {
+            hexString.append(String.format("%02x", b));
+        }
+        return hexString.toString();
+    }
 
 
     private void btnAddNewEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewEmpActionPerformed
@@ -322,13 +332,14 @@ public class AddNewLoginUser extends javax.swing.JFrame {
         if (!isValidPassword() || !isValidData()) {
           return;
         }
-        // verify that new user does not currently exist
-        // done in isValidData()
-        
-        // if all validations are successful then enter the new user
         try {
+          MessageDigest md = MessageDigest.getInstance("MD5");
+          md.update(password.getBytes());
+          byte[] digest = md.digest();
+          String hashedPassword = bytesToHex(digest);
+          try {
           dbCon = new myDBCon();
-          int rs = dbCon.executePrepared(String.format("INSERT INTO loginusers VALUES ('%s', '%s', '%s', %d)", name, username, password, getUserTypeNum(type)));
+          int rs = dbCon.executePrepared(String.format("INSERT INTO loginusers VALUES ('%s', '%s', '%s', %d)", name, username, hashedPassword, getUserTypeNum(type)));
           
           if(rs > 0){
             javax.swing.JLabel label = new javax.swing.JLabel("New user added successfully.");
@@ -336,10 +347,17 @@ public class AddNewLoginUser extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, label, "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
             clearInputBoxes();
           }
-        } catch (SQLException e) {
-          System.out.println(e);
-          JOptionPane.showMessageDialog(null, "Error adding new user.");
-        }
+          } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Error adding new user.");
+          }
+        } catch (NoSuchAlgorithmException e) {e.printStackTrace();}
+        
+        // verify that new user does not currently exist
+        // done in isValidData()
+        
+        // if all validations are successful then enter the new user
+        
         
         
     }//GEN-LAST:event_btnAddNewEmpActionPerformed
