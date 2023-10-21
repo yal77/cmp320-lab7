@@ -382,6 +382,12 @@ public class UpdateDeleteLoginUser extends javax.swing.JFrame {
         // TODO add your handling code here:
         // verify input data
         // verify that new user does not currently exist 
+        String conf = JOptionPane.showInputDialog("Are you sure you want to update?\nYES to update\nAnything else to cancel");
+        System.out.println(conf);
+        if(conf.equalsIgnoreCase("YES") != true){
+            //if user doesn't enter "YES", do nothing
+            return;
+        }
         String name = txtName.getText();
         String username = txtUsername.getText();
         String password = String.valueOf(txtPassword.getPassword());
@@ -436,6 +442,12 @@ public class UpdateDeleteLoginUser extends javax.swing.JFrame {
 
     private void btnDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUserActionPerformed
         // TODO add your handling code here:
+        String conf = JOptionPane.showInputDialog("Are you sure you want to update?\nYES to update\nAnything else to cancel");
+        System.out.println(conf);
+        if(conf.equalsIgnoreCase("YES") != true){
+            //if user doesn't enter "YES", do nothing
+            return;
+        }
       String username = txtUsername.getText();
        
       try {

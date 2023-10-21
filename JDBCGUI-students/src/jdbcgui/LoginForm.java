@@ -32,7 +32,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         try {
             // read valid username accounts to compare 
-            rs = dbCon.executeStatement("SELECT username, name, password, type FROM loginusers ORDER BY username ");
+            rs = dbCon.executeStatement("SELECT username, name, password, type FROM loginusers ORDER BY username");
 
         } catch (SQLException e) {
             javax.swing.JLabel label = new javax.swing.JLabel("SQL Error - Retreiving Login User accounts.");

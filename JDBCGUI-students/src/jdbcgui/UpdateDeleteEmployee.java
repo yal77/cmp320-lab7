@@ -398,6 +398,12 @@ public class UpdateDeleteEmployee extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        String conf = JOptionPane.showInputDialog("Are you sure you want to update?\nYES to update\nAnything else to cancel");
+        System.out.println(conf);
+        if(conf.equalsIgnoreCase("YES") != true){
+            //if user doesn't enter "YES", do nothing
+            return;
+        }
         try {
             // make the result set scrolable forward/backward updatable
             String prepSQL = "DELETE emp WHERE empno = " + txtEmpno.getText().trim();
@@ -510,6 +516,12 @@ public class UpdateDeleteEmployee extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        String conf = JOptionPane.showInputDialog("Are you sure you want to update?\nYES to update\nAnything else to cancel");
+        System.out.println(conf);
+        if(conf.equalsIgnoreCase("YES") != true){
+            //if user doesn't enter "YES", do nothing
+            return;
+        }
 
         try {
             // make the result set scrolable forward/backward updatable
