@@ -5,9 +5,12 @@
  */
 package jdbcgui;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import static jdbcgui.AddNewLoginUser.bytesToHex;
 
 /**
  *
@@ -29,7 +32,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         try {
             // read valid username accounts to compare 
-            rs = dbCon.executeStatement("SELECT username, name, password, type FROM loginusers ORDER BY username ");
+            rs = dbCon.executeStatement("SELECT username, name, type FROM loginusers WHERE username = ? AND password = ?");
 
         } catch (SQLException e) {
             javax.swing.JLabel label = new javax.swing.JLabel("SQL Error - Retreiving Login User accounts.");
@@ -134,15 +137,27 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         try {
+            rs = dbCon.executeStatement("SELECT username, name, type FROM loginusers WHERE username = ? AND password = ?");
+
             rs.beforeFirst();
+            
             while (rs.next()) { // loop over the current login user accounts searching for a match 
-                if (rs.getString("username").equals(txtUsername.getText().trim()) && rs.getString("password").equals(txtPassword.getText().trim())) {
-                    // Valid Login User found
-                    validLogin = true;
-                    // create a new login user object and pass details to Menu form 
-                    (new Menu(new LoginUser(rs.getString("Username"), rs.getString("Name"), rs.getInt("Type")))).setVisible(true);
-                    this.dispose(); // remove this login from from memory 
-                }
+              boolean match = false;
+              try {
+                String password = txtPassword.getText();
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                md.update(password.getBytes());
+                byte[] digest = md.digest();
+                String hashedPassword = bytesToHex(digest);
+                match = rs.getString("password").equals(hashedPassword);
+              } catch (NoSuchAlgorithmException e) {}
+              if (rs.getString("username").equals(txtUsername.getText().trim()) && match) {
+                  // Valid Login User found
+                  validLogin = true;
+                  // create a new login user object and pass details to Menu form 
+                  (new Menu(new LoginUser(rs.getString("Username"), rs.getString("Name"), rs.getInt("Type")))).setVisible(true);
+                  this.dispose(); // remove this login from from memory 
+              }
             }
 
             if (!validLogin) { // this mean Invalid credentials 
